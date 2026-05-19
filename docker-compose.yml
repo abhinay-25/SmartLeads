@@ -1,0 +1,49 @@
+version: '3.8'
+
+services:
+
+
+  backend:
+    build:
+      context: ./backend
+      target: production
+    container_name: smart-leads-backend
+    restart: unless-stopped
+
+    environment:
+      # Inject environment variables for the runtime
+      - NODE_ENV=production
+      - PORT=5000
+      - MONGODB_URI=mongodb+srv://abhinay:abhinay0112@cluster0.igbtva5.mongodb.net/smart-leads?retryWrites=true&w=majority&appName=Cluster0
+      - JWT_SECRET=your_super_secret_jwt_key_replace_in_prod
+      - JWT_EXPIRES_IN=7d
+      - CORS_ORIGIN=http://localhost:3000
+    # No need to expose ports publicly if frontend proxy is used, 
+    # but we expose it for direct local API access testing
+    ports:
+      - "5000:5000"
+    networks:
+      - smart-leads-network
+
+  frontend:
+    build:
+      context: ./frontend
+      target: production
+      args:
+        # Bake this into the static build. 
+        # Nginx intercepts /api and proxies it to the backend container.
+        - VITE_API_URL=/api
+    container_name: smart-leads-frontend
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "3000:80" # Maps local port 3000 to Nginx port 80
+    networks:
+      - smart-leads-network
+
+
+networks:
+  smart-leads-network:
+    name: smart-leads-network
+    driver: bridge
