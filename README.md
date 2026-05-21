@@ -151,6 +151,6 @@ smart-leads-dashboard/
 ## 👨‍💻 Author
 
 **Your Name**
-- LinkedIn: [Your LinkedIn Profile](https://linkedin.com/in/yourprofile)
-- GitHub: [@yourusername](https://github.com/yourusername)
-- Portfolio: [yourportfolio.com](https://yourportfolio.com)
+- LinkedIn: [Abhinay Palle](https://www.linkedin.com/in/abhinay-palle/)
+- GitHub: [@abhinay-25](https://github.com/abhinay-25)
+
